@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"github.com/uiansol/product-follow-up/internal/adapters/api"
+)
 
 func main() {
-	fmt.Println("Hello, World!")
+	api.SetUpServer()
 }
