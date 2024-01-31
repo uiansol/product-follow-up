@@ -15,8 +15,8 @@ func TestNewProduct(t *testing.T) {
 		assert.Equal(t, "test product", product.Name)
 		assert.Equal(t, "test product comments", product.Comments)
 		assert.Equal(t, "http://testproduct.com", product.Link)
-		assert.Equal(t, 10.99, product.CurrentPrice)
-		assert.NotNil(t, product.CurrentPriceDate)
+		assert.Equal(t, 10.99, product.Price)
+		assert.NotNil(t, product.PriceDate)
 	})
 
 	t.Run("should return error for empty name", func(t *testing.T) {
