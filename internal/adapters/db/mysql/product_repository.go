@@ -1,21 +1,48 @@
 package mysql
 
 import (
-	"database/sql"
+	"time"
 
 	"github.com/uiansol/product-follow-up/internal/application/entities"
+	"gorm.io/gorm"
 )
 
 type ProductRepository struct {
-	db *sql.DB
+	db *gorm.DB
 }
 
-func NewProductRepository(db *sql.DB) *ProductRepository {
+type ProductDB struct {
+	gorm.Model
+	UUID      string `gorm:"primaryKey"`
+	Name      string
+	Comments  *string
+	Link      string
+	Price     float64
+	CreatedAt time.Time
+	UpdatedAt time.Time
+}
+
+func NewProductRepository(db *gorm.DB) *ProductRepository {
 	return &ProductRepository{
 		db: db,
 	}
 }
 
-func (p *ProductRepository) Save(user entities.Product) (string, error) {
-	return "TODO: implement", nil
+func (p *ProductRepository) Save(product entities.Product) (string, error) {
+	productDB := ProductDB{
+		UUID:      product.ID,
+		Name:      product.Name,
+		Comments:  &product.Comments,
+		Link:      product.Link,
+		Price:     product.Price,
+		CreatedAt: product.PriceDate,
+		UpdatedAt: product.PriceDate,
+	}
+
+	result := p.db.Create(&productDB)
+	if result.Error != nil {
+		return "", result.Error
+	}
+
+	return productDB.UUID, nil
 }

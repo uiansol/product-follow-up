@@ -1,25 +1,13 @@
 package api
 
 import (
-	"database/sql"
-
 	"github.com/uiansol/product-follow-up/internal/adapters/api/handlers"
 	"github.com/uiansol/product-follow-up/internal/adapters/db/mysql"
 	"github.com/uiansol/product-follow-up/internal/application/usecases"
+	"gorm.io/gorm"
 )
 
-func configHandlers(usecases *AppUseCases) *AppHandlers {
-	pingHandler := handlers.NewPingHandler()
-
-	productCreateHandler := handlers.NewProductCreateHandler(usecases.productCreateUseCase)
-
-	return &AppHandlers{
-		pingHandler:    pingHandler,
-		productHandler: productCreateHandler,
-	}
-}
-
-func configRepositories(db *sql.DB) *AppRepositories {
+func configRepositories(db *gorm.DB) *AppRepositories {
 	productRepository := mysql.NewProductRepository(db)
 
 	return &AppRepositories{
@@ -32,5 +20,16 @@ func configUseCases(repositories *AppRepositories) *AppUseCases {
 
 	return &AppUseCases{
 		productCreateUseCase: productCreateUseCase,
+	}
+}
+
+func configHandlers(usecases *AppUseCases) *AppHandlers {
+	pingHandler := handlers.NewPingHandler()
+
+	productCreateHandler := handlers.NewProductCreateHandler(usecases.productCreateUseCase)
+
+	return &AppHandlers{
+		pingHandler:    pingHandler,
+		productHandler: productCreateHandler,
 	}
 }

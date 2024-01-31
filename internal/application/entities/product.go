@@ -3,6 +3,8 @@ package entities
 import (
 	"errors"
 	"time"
+
+	"github.com/google/uuid"
 )
 
 type Product struct {
@@ -29,6 +31,7 @@ func NewProduct(name, comments, link string, price float64) (Product, error) {
 	}
 
 	product := Product{
+		ID:        uuid.New().String(),
 		Name:      name,
 		Comments:  comments,
 		Link:      link,

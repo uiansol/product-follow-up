@@ -1,16 +1,16 @@
 package api
 
 import (
-	"database/sql"
 	"fmt"
 	"os"
 
-	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/uiansol/product-follow-up/internal/adapters/api/handlers"
-	adapterDBMysql "github.com/uiansol/product-follow-up/internal/adapters/db/mysql"
+	"github.com/uiansol/product-follow-up/internal/adapters/db/mysql"
 	"github.com/uiansol/product-follow-up/internal/application/usecases"
+	gormmysql "gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 type RestServer struct {
@@ -24,7 +24,7 @@ type AppHandlers struct {
 }
 
 type AppRepositories struct {
-	productRepository *adapterDBMysql.ProductRepository
+	productRepository *mysql.ProductRepository
 }
 
 type AppUseCases struct {
@@ -46,7 +46,7 @@ func NewRestService(router *echo.Echo, appHandler *AppHandlers) *RestServer {
 	}
 }
 
-func SetUpServer() {
+func RunServer() {
 	err := godotenv.Load(".env")
 	if err != nil {
 		panic(err)
@@ -54,11 +54,10 @@ func SetUpServer() {
 
 	env := getEnv()
 
-	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", env.MYSQL_USER, env.MYSQL_PASS, env.MYSQL_HOST, env.MYSQL_PORT, env.MYSQL_DB))
+	db, err := gorm.Open(gormmysql.Open(fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", env.MYSQL_USER, env.MYSQL_PASS, env.MYSQL_HOST, env.MYSQL_PORT, env.MYSQL_DB)), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
-	defer db.Close()
 
 	repositories := configRepositories(db)
 	useCases := configUseCases(repositories)
