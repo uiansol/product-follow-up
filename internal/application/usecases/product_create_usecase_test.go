@@ -5,11 +5,11 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
-	"github.com/uiansol/product-follow-up/internal/adapters/db/mocks"
+	"github.com/uiansol/product-follow-up/internal/adapters/db/mocksdb"
 )
 
 func TestNewProductCreateUseCase(t *testing.T) {
-	productRepositoryMock := mocks.NewIProductRepository(t)
+	productRepositoryMock := mocksdb.NewIProductRepository(t)
 
 	t.Run("should return a create user use case", func(t *testing.T) {
 		createUserUseCase := NewProductCreateUseCase(productRepositoryMock)
@@ -27,7 +27,7 @@ func TestExecute(t *testing.T) {
 	}
 
 	t.Run("should create the product and return error nil", func(t *testing.T) {
-		productRepositoryMock := mocks.NewIProductRepository(t)
+		productRepositoryMock := mocksdb.NewIProductRepository(t)
 		productCreateUseCase := NewProductCreateUseCase(productRepositoryMock)
 
 		productRepositoryMock.On("Save", mock.Anything).Return("123", nil)
@@ -39,7 +39,7 @@ func TestExecute(t *testing.T) {
 	})
 
 	t.Run("should return error when name is invalid", func(t *testing.T) {
-		productRepositoryMock := mocks.NewIProductRepository(t)
+		productRepositoryMock := mocksdb.NewIProductRepository(t)
 		productCreateUseCase := NewProductCreateUseCase(productRepositoryMock)
 
 		inputInvalidName := ProductCreateInput{
@@ -55,7 +55,7 @@ func TestExecute(t *testing.T) {
 	})
 
 	t.Run("should return error when couldn't save", func(t *testing.T) {
-		productRepositoryMock := mocks.NewIProductRepository(t)
+		productRepositoryMock := mocksdb.NewIProductRepository(t)
 		productCreateUseCase := NewProductCreateUseCase(productRepositoryMock)
 
 		productRepositoryMock.On("Save", mock.Anything).Return("", assert.AnError)
