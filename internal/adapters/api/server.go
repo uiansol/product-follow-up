@@ -11,7 +11,8 @@ type RestServer struct {
 }
 
 type AppHandlers struct {
-	pingHandler *handlers.PingHandler
+	pingHandler    *handlers.PingHandler
+	productHandler *handlers.ProductCreateHandler
 }
 
 func NewRestService(router *echo.Echo, appHandler *AppHandlers) *RestServer {
