@@ -24,8 +24,8 @@ type ProductCreateOutput struct {
 	ProductID string
 }
 
-func NewProductCreateUseCase(productRepository interfaces.IProductRepository) ProductCreateUseCase {
-	return ProductCreateUseCase{
+func NewProductCreateUseCase(productRepository interfaces.IProductRepository) *ProductCreateUseCase {
+	return &ProductCreateUseCase{
 		productRepository: productRepository,
 	}
 }
