@@ -27,10 +27,10 @@ func TestNewProductCreateHandler(t *testing.T) {
 func TestProductCreateHandle(t *testing.T) {
 	t.Run("should process request and return ok with new product id", func(t *testing.T) {
 		validBody := dto.ProductCreateRequest{
-			Name:        "Test-Name",
-			Description: "Test-Description",
-			Link:        "Test-Link",
-			Price:       10.5,
+			Name:     "Test-Name",
+			Comments: "Test-Description",
+			Link:     "Test-Link",
+			Price:    10.5,
 		}
 		validBodyJSON, _ := json.Marshal(validBody)
 
@@ -49,7 +49,7 @@ func TestProductCreateHandle(t *testing.T) {
 		var res map[string]string
 		json.NewDecoder(rec.Body).Decode(&res)
 
-		assert.Equal(t, http.StatusOK, rec.Code)
+		assert.Equal(t, http.StatusCreated, rec.Code)
 		assert.Equal(t, "Test-ID", res["product_id"])
 	})
 

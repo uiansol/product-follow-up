@@ -3,6 +3,7 @@ package usecases
 import (
 	"errors"
 
+	"github.com/uiansol/product-follow-up/internal/application/entities"
 	"github.com/uiansol/product-follow-up/internal/application/interfaces"
 )
 
@@ -29,18 +30,16 @@ func NewProductUpdateUseCase(productRepository interfaces.IProductRepository) *P
 }
 
 func (u *ProductUpdateUseCase) Execute(productUpdateInput ProductUpdateInput) error {
-	product, err := u.productRepository.Read(productUpdateInput.ID)
-	if err != nil {
-		return errors.New("error reading product")
+	product := entities.Product{
+		ID:       productUpdateInput.ID,
+		Name:     productUpdateInput.Name,
+		Comments: productUpdateInput.Comments,
+		Link:     productUpdateInput.Link,
+		Price:    productUpdateInput.Price,
 	}
-
-	product.Name = productUpdateInput.Name
-	product.Comments = productUpdateInput.Comments
-	product.Link = productUpdateInput.Link
-	product.Price = productUpdateInput.Price
 	product.UpdatePriceDate()
 
-	err = u.productRepository.Update(product)
+	err := u.productRepository.Update(&product)
 	if err != nil {
 		return errors.New("error updating product")
 	}
