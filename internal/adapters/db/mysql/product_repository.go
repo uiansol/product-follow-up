@@ -92,12 +92,11 @@ func (p *ProductRepository) Update(product *entities.Product) error {
 }
 
 func (p *ProductRepository) Delete(id string) error {
-	result := p.db.Delete(&ProductDB{}, "uuid = ?", id)
+	result := p.db.Unscoped().Delete(&ProductDB{}, "uuid = ?", id)
 	if result.Error != nil {
-		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
-			return errors.New(apperr.ErrNotFound)
-		}
 		return result.Error
+	} else if result.RowsAffected < 1 {
+		return errors.New(apperr.ErrNotFound)
 	}
 
 	return nil
