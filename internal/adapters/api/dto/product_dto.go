@@ -4,7 +4,7 @@ import "time"
 
 type ProductCreateRequest struct {
 	Name     string  `json:"name"`
-	Comments string  `json:"description"`
+	Comments string  `json:"comments"`
 	Link     string  `json:"link"`
 	Price    float64 `json:"price"`
 }
