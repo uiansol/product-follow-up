@@ -66,3 +66,34 @@ func (p *ProductRepository) Read(id string) (*entities.Product, error) {
 
 	return &product, nil
 }
+
+func (p *ProductRepository) Update(product *entities.Product) error {
+	productDB := ProductDB{}
+
+	result := p.db.First(&productDB, "uuid = ?", product.ID)
+	if result.Error != nil {
+		return result.Error
+	}
+
+	productDB.Name = product.Name
+	productDB.Comments = product.Comments
+	productDB.Link = product.Link
+	productDB.Price = product.Price
+	productDB.UpdatedAt = product.PriceDate
+
+	result = p.db.Save(&productDB)
+	if result.Error != nil {
+		return result.Error
+	}
+
+	return nil
+}
+
+func (p *ProductRepository) Delete(id string) error {
+	result := p.db.Delete(&ProductDB{}, "uuid = ?", id)
+	if result.Error != nil {
+		return result.Error
+	}
+
+	return nil
+}

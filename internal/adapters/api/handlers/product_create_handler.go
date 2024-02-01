@@ -34,5 +34,5 @@ func (h *ProductCreateHandler) Handle(c echo.Context) error {
 
 	response := mappers.ProductCreateOutputToProductCreateResponse(output)
 
-	return c.JSON(http.StatusOK, response)
+	return c.JSON(http.StatusCreated, response)
 }

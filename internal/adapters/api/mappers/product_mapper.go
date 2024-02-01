@@ -7,10 +7,10 @@ import (
 
 func ProductCreateRequestToProductCreateInput(p dto.ProductCreateRequest) usecases.ProductCreateInput {
 	return usecases.ProductCreateInput{
-		Name:        p.Name,
-		Description: p.Description,
-		Link:        p.Link,
-		Price:       p.Price,
+		Name:     p.Name,
+		Comments: p.Comments,
+		Link:     p.Link,
+		Price:    p.Price,
 	}
 }
 
@@ -34,5 +34,15 @@ func ProductReadOutputToProductReadResponse(p usecases.ProductReadOutput) dto.Pr
 		Link:      p.Link,
 		Price:     p.Price,
 		PriceDate: p.PriceDate,
+	}
+}
+
+func ProductUpdateRequestToProductUpdateInput(p dto.ProductUpdateRequest) usecases.ProductUpdateInput {
+	return usecases.ProductUpdateInput{
+		ID:       p.ID,
+		Name:     p.Name,
+		Comments: p.Comments,
+		Link:     p.Link,
+		Price:    p.Price,
 	}
 }

@@ -41,3 +41,7 @@ func NewProduct(name, comments, link string, price float64) (Product, error) {
 
 	return product, nil
 }
+
+func (p *Product) UpdatePriceDate() {
+	p.PriceDate = time.Now()
+}

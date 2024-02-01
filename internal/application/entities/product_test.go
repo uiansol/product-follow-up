@@ -2,6 +2,7 @@ package entities
 
 import (
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -35,5 +36,18 @@ func TestNewProduct(t *testing.T) {
 		_, err := NewProduct("test product", "test product comments", "http://testproduct.com", 0)
 
 		assert.Equal(t, "product price is required", err.Error())
+	})
+}
+
+func TestProductUpdatePriceDate(t *testing.T) {
+	t.Run("should update price date", func(t *testing.T) {
+		date, _ := time.Parse(time.RFC3339, "2021-01-01T00:00:00Z")
+		product := Product{
+			PriceDate: date,
+		}
+
+		product.UpdatePriceDate()
+
+		assert.NotEqual(t, date, product.PriceDate)
 	})
 }

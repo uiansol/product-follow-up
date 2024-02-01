@@ -14,10 +14,10 @@ type ProductCreateUseCase struct {
 }
 
 type ProductCreateInput struct {
-	Name        string
-	Description string
-	Link        string
-	Price       float64
+	Name     string
+	Comments string
+	Link     string
+	Price    float64
 }
 
 type ProductCreateOutput struct {
@@ -31,7 +31,7 @@ func NewProductCreateUseCase(productRepository interfaces.IProductRepository) *P
 }
 
 func (u *ProductCreateUseCase) Execute(productCreateInput ProductCreateInput) (ProductCreateOutput, error) {
-	product, err := entities.NewProduct(productCreateInput.Name, productCreateInput.Description, productCreateInput.Link, productCreateInput.Price)
+	product, err := entities.NewProduct(productCreateInput.Name, productCreateInput.Comments, productCreateInput.Link, productCreateInput.Price)
 	if err != nil {
 		return ProductCreateOutput{}, err
 	}

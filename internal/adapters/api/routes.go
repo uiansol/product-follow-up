@@ -22,4 +22,7 @@ func (s *RestServer) ProductRoutes() {
 	s.router.GET("/product/:id", func(c echo.Context) error {
 		return s.appHandler.productReadHandler.Handle(c)
 	})
+	s.router.PUT("/product/:id", func(c echo.Context) error {
+		return s.appHandler.productUpdateHandler.Handle(c)
+	})
 }
