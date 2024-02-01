@@ -4,6 +4,7 @@ import (
 	"errors"
 	"time"
 
+	"github.com/uiansol/product-follow-up/internal/application/apperr"
 	"github.com/uiansol/product-follow-up/internal/application/entities"
 	"gorm.io/gorm"
 )
@@ -94,7 +95,7 @@ func (p *ProductRepository) Delete(id string) error {
 	result := p.db.Delete(&ProductDB{}, "uuid = ?", id)
 	if result.Error != nil {
 		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
-			return errors.New("product not found")
+			return errors.New(apperr.ErrNotFound)
 		}
 		return result.Error
 	}

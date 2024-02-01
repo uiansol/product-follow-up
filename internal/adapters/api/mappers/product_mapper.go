@@ -16,12 +16,18 @@ func ProductCreateRequestToProductCreateInput(p dto.ProductCreateRequest) usecas
 
 func ProductCreateOutputToProductCreateResponse(p usecases.ProductCreateOutput) dto.ProductCreateResponse {
 	return dto.ProductCreateResponse{
-		ProductID: p.ProductID,
+		ID: p.ID,
 	}
 }
 
-func ProductReadRequestToProductReadInput(p dto.ProductReadRequest) usecases.ProductReadInput {
+func ProductIDRequestToProductReadInput(p dto.ProductIDRequest) usecases.ProductReadInput {
 	return usecases.ProductReadInput{
+		ID: p.ID,
+	}
+}
+
+func ProductIDRequestToProductDeleteInput(p dto.ProductIDRequest) usecases.ProductDeleteInput {
+	return usecases.ProductDeleteInput{
 		ID: p.ID,
 	}
 }

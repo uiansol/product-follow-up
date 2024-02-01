@@ -35,7 +35,7 @@ func TestProductCreateExecute(t *testing.T) {
 		output, err := productCreateUseCase.Execute(input)
 
 		assert.Nil(t, err)
-		assert.Equal(t, "123", output.ProductID)
+		assert.Equal(t, "123", output.ID)
 	})
 
 	t.Run("should return error when name is invalid", func(t *testing.T) {

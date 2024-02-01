@@ -41,16 +41,16 @@ func TestProductCreateHandle(t *testing.T) {
 		c := e.NewContext(req, rec)
 
 		useCaseMock := usecases.NewIProductCreateUseCaseMock(t)
-		useCaseMock.On("Execute", mock.Anything).Return(usecases.ProductCreateOutput{ProductID: "Test-ID"}, nil)
+		useCaseMock.On("Execute", mock.Anything).Return(usecases.ProductCreateOutput{ID: "Test-ID"}, nil)
 
 		h := NewProductCreateHandler(useCaseMock)
 		h.Handle(c)
 
-		var res map[string]string
+		var res dto.ProductCreateResponse
 		json.NewDecoder(rec.Body).Decode(&res)
 
 		assert.Equal(t, http.StatusCreated, rec.Code)
-		assert.Equal(t, "Test-ID", res["product_id"])
+		assert.Equal(t, "Test-ID", res.ID)
 	})
 
 	t.Run("should return 400 when cannot bind", func(t *testing.T) {

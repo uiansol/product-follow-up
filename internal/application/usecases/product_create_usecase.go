@@ -21,7 +21,7 @@ type ProductCreateInput struct {
 }
 
 type ProductCreateOutput struct {
-	ProductID string
+	ID string
 }
 
 func NewProductCreateUseCase(productRepository interfaces.IProductRepository) *ProductCreateUseCase {
@@ -42,7 +42,7 @@ func (u *ProductCreateUseCase) Execute(productCreateInput ProductCreateInput) (P
 	}
 
 	output := ProductCreateOutput{
-		ProductID: id,
+		ID: id,
 	}
 
 	return output, nil
