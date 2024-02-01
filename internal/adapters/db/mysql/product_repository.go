@@ -54,6 +54,9 @@ func (p *ProductRepository) Read(id string) (*entities.Product, error) {
 
 	result := p.db.First(&productDB, "uuid = ?", id)
 	if result.Error != nil {
+		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+			return &entities.Product{}, errors.New(apperr.ErrNotFound)
+		}
 		return &entities.Product{}, result.Error
 	}
 
