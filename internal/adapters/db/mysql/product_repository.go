@@ -1,6 +1,7 @@
 package mysql
 
 import (
+	"errors"
 	"time"
 
 	"github.com/uiansol/product-follow-up/internal/application/entities"
@@ -92,6 +93,9 @@ func (p *ProductRepository) Update(product *entities.Product) error {
 func (p *ProductRepository) Delete(id string) error {
 	result := p.db.Delete(&ProductDB{}, "uuid = ?", id)
 	if result.Error != nil {
+		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+			return errors.New("product not found")
+		}
 		return result.Error
 	}
 
