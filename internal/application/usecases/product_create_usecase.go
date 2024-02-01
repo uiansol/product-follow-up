@@ -36,7 +36,7 @@ func (u *ProductCreateUseCase) Execute(productCreateInput ProductCreateInput) (P
 		return ProductCreateOutput{}, err
 	}
 
-	id, err := u.productRepository.Save(product)
+	id, err := u.productRepository.Save(&product)
 	if err != nil {
 		return ProductCreateOutput{}, err
 	}

@@ -18,7 +18,7 @@ func TestNewProductCreateUseCase(t *testing.T) {
 	})
 }
 
-func TestExecute(t *testing.T) {
+func TestProductCreateExecute(t *testing.T) {
 	input := ProductCreateInput{
 		Name:        "test product",
 		Description: "test description",

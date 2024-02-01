@@ -13,8 +13,38 @@ type IProductRepository struct {
 	mock.Mock
 }
 
+// Read provides a mock function with given fields: id
+func (_m *IProductRepository) Read(id string) (*entities.Product, error) {
+	ret := _m.Called(id)
+
+	if len(ret) == 0 {
+		panic("no return value specified for Read")
+	}
+
+	var r0 *entities.Product
+	var r1 error
+	if rf, ok := ret.Get(0).(func(string) (*entities.Product, error)); ok {
+		return rf(id)
+	}
+	if rf, ok := ret.Get(0).(func(string) *entities.Product); ok {
+		r0 = rf(id)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*entities.Product)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(string) error); ok {
+		r1 = rf(id)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // Save provides a mock function with given fields: user
-func (_m *IProductRepository) Save(user entities.Product) (string, error) {
+func (_m *IProductRepository) Save(user *entities.Product) (string, error) {
 	ret := _m.Called(user)
 
 	if len(ret) == 0 {
@@ -23,16 +53,16 @@ func (_m *IProductRepository) Save(user entities.Product) (string, error) {
 
 	var r0 string
 	var r1 error
-	if rf, ok := ret.Get(0).(func(entities.Product) (string, error)); ok {
+	if rf, ok := ret.Get(0).(func(*entities.Product) (string, error)); ok {
 		return rf(user)
 	}
-	if rf, ok := ret.Get(0).(func(entities.Product) string); ok {
+	if rf, ok := ret.Get(0).(func(*entities.Product) string); ok {
 		r0 = rf(user)
 	} else {
 		r0 = ret.Get(0).(string)
 	}
 
-	if rf, ok := ret.Get(1).(func(entities.Product) error); ok {
+	if rf, ok := ret.Get(1).(func(*entities.Product) error); ok {
 		r1 = rf(user)
 	} else {
 		r1 = ret.Error(1)
