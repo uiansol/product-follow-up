@@ -5,30 +5,35 @@ import (
 )
 
 func (s *RestServer) SetUpRoutes() {
-	s.PingRoutes()
-	s.ProductRoutes()
+	v1 := s.router.Group("/v1")
+	s.PingRoutes(v1)
+
+	v2 := s.router.Group("/v2")
+	s.ProductRoutes(v2)
 }
 
-func (s *RestServer) PingRoutes() {
-	s.router.GET("/ping", func(c echo.Context) error {
+func (s *RestServer) PingRoutes(v1 *echo.Group) {
+	v1.GET("/ping", func(c echo.Context) error {
 		return s.appHandler.pingHandler.Handle(c)
 	})
 }
 
-func (s *RestServer) ProductRoutes() {
-	s.router.POST("/product", func(c echo.Context) error {
+func (s *RestServer) ProductRoutes(v2 *echo.Group) {
+	product := v2.Group("/product")
+
+	product.POST("/", func(c echo.Context) error {
 		return s.appHandler.productCreateHandler.Handle(c)
 	})
-	s.router.GET("/product", func(c echo.Context) error {
+	product.GET("/", func(c echo.Context) error {
 		return s.appHandler.productReadAllHandler.Handle(c)
 	})
-	s.router.GET("/product/:id", func(c echo.Context) error {
+	product.GET("/:id", func(c echo.Context) error {
 		return s.appHandler.productReadHandler.Handle(c)
 	})
-	s.router.PUT("/product/:id", func(c echo.Context) error {
+	product.PUT("/:id", func(c echo.Context) error {
 		return s.appHandler.productUpdateHandler.Handle(c)
 	})
-	s.router.DELETE("/product/:id", func(c echo.Context) error {
+	product.DELETE("/:id", func(c echo.Context) error {
 		return s.appHandler.productDeleteHandler.Handle(c)
 	})
 }
