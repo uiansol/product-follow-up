@@ -13,7 +13,7 @@ import (
 func TestHandle(t *testing.T) {
 	t.Run("should retur json with pong", func(t *testing.T) {
 		e := echo.New()
-		req := httptest.NewRequest(http.MethodGet, "/ping", nil)
+		req := httptest.NewRequest(http.MethodGet, "/v1/ping", nil)
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
 
