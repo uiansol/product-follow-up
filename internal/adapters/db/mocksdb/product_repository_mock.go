@@ -13,6 +13,24 @@ type IProductRepository struct {
 	mock.Mock
 }
 
+// Delete provides a mock function with given fields: id
+func (_m *IProductRepository) Delete(id string) error {
+	ret := _m.Called(id)
+
+	if len(ret) == 0 {
+		panic("no return value specified for Delete")
+	}
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(string) error); ok {
+		r0 = rf(id)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
 // Read provides a mock function with given fields: id
 func (_m *IProductRepository) Read(id string) (*entities.Product, error) {
 	ret := _m.Called(id)
@@ -69,6 +87,24 @@ func (_m *IProductRepository) Save(user *entities.Product) (string, error) {
 	}
 
 	return r0, r1
+}
+
+// Update provides a mock function with given fields: user
+func (_m *IProductRepository) Update(user *entities.Product) error {
+	ret := _m.Called(user)
+
+	if len(ret) == 0 {
+		panic("no return value specified for Update")
+	}
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(*entities.Product) error); ok {
+		r0 = rf(user)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
 }
 
 // NewIProductRepository creates a new instance of IProductRepository. It also registers a testing interface on the mock and a cleanup function to assert the mocks expectations.
