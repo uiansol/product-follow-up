@@ -35,7 +35,7 @@ func TestProductCreateHandle(t *testing.T) {
 		validBodyJSON, _ := json.Marshal(validBody)
 
 		e := echo.New()
-		req := httptest.NewRequest(http.MethodPost, "/product", strings.NewReader(string(validBodyJSON)))
+		req := httptest.NewRequest(http.MethodPost, "/v2/product", strings.NewReader(string(validBodyJSON)))
 		req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
@@ -57,7 +57,7 @@ func TestProductCreateHandle(t *testing.T) {
 		invalidBody := "invalid body"
 
 		e := echo.New()
-		req := httptest.NewRequest(http.MethodPost, "/product", strings.NewReader(invalidBody))
+		req := httptest.NewRequest(http.MethodPost, "/v2/product", strings.NewReader(invalidBody))
 		req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
@@ -72,7 +72,7 @@ func TestProductCreateHandle(t *testing.T) {
 
 	t.Run("should return 500 when use case returns error", func(t *testing.T) {
 		e := echo.New()
-		req := httptest.NewRequest(http.MethodPost, "/product", nil)
+		req := httptest.NewRequest(http.MethodPost, "/v2/product", nil)
 		req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)

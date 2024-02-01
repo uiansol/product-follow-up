@@ -47,7 +47,7 @@ func TestProductReadAllHandle(t *testing.T) {
 		})
 
 		e := echo.New()
-		req := httptest.NewRequest(http.MethodGet, "/product", nil)
+		req := httptest.NewRequest(http.MethodGet, "/v2/product", nil)
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
 
@@ -80,7 +80,7 @@ func TestProductReadAllHandle(t *testing.T) {
 
 	t.Run("should return 500 when use case returns error", func(t *testing.T) {
 		e := echo.New()
-		req := httptest.NewRequest(http.MethodGet, "/product/Test-ID", nil)
+		req := httptest.NewRequest(http.MethodGet, "/v2/product/Test-ID", nil)
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
 

@@ -37,7 +37,7 @@ func TestProductUpdateHandle(t *testing.T) {
 		validBodyJSON, _ := json.Marshal(validBody)
 
 		e := echo.New()
-		req := httptest.NewRequest(http.MethodPut, "/product/Test-ID", strings.NewReader(string(validBodyJSON)))
+		req := httptest.NewRequest(http.MethodPut, "/v2/product/Test-ID", strings.NewReader(string(validBodyJSON)))
 		req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
@@ -55,7 +55,7 @@ func TestProductUpdateHandle(t *testing.T) {
 		invalidBody := "invalid body"
 
 		e := echo.New()
-		req := httptest.NewRequest(http.MethodPut, "/product/Test-ID", strings.NewReader(invalidBody))
+		req := httptest.NewRequest(http.MethodPut, "/v2/product/Test-ID", strings.NewReader(invalidBody))
 		req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
@@ -70,7 +70,7 @@ func TestProductUpdateHandle(t *testing.T) {
 
 	t.Run("should return 404 when use case returns error not found", func(t *testing.T) {
 		e := echo.New()
-		req := httptest.NewRequest(http.MethodPut, "/product/Test-ID", nil)
+		req := httptest.NewRequest(http.MethodPut, "/v2/product/Test-ID", nil)
 		req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
@@ -86,7 +86,7 @@ func TestProductUpdateHandle(t *testing.T) {
 
 	t.Run("should return 500 when use case returns error", func(t *testing.T) {
 		e := echo.New()
-		req := httptest.NewRequest(http.MethodPut, "/product/Test-ID", nil)
+		req := httptest.NewRequest(http.MethodPut, "/v2/product/Test-ID", nil)
 		req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
