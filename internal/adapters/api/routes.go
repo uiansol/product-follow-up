@@ -25,4 +25,7 @@ func (s *RestServer) ProductRoutes() {
 	s.router.PUT("/product/:id", func(c echo.Context) error {
 		return s.appHandler.productUpdateHandler.Handle(c)
 	})
+	s.router.DELETE("/product/:id", func(c echo.Context) error {
+		return s.appHandler.productDeleteHandler.Handle(c)
+	})
 }

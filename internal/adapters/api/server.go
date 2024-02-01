@@ -26,6 +26,7 @@ type AppUseCases struct {
 	productCreateUseCase *usecases.ProductCreateUseCase
 	productReadUseCase   *usecases.ProductReadUseCase
 	productUpdateUseCase *usecases.ProductUpdateUseCase
+	productDeleteUseCase *usecases.ProductDeleteUseCase
 }
 
 type AppHandlers struct {
@@ -33,6 +34,7 @@ type AppHandlers struct {
 	productCreateHandler *handlers.ProductCreateHandler
 	productReadHandler   *handlers.ProductReadHandler
 	productUpdateHandler *handlers.ProductUpdateHandler
+	productDeleteHandler *handlers.ProductDeleteHandler
 }
 
 type EnvVariables struct {

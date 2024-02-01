@@ -1,8 +1,10 @@
 package mysql
 
 import (
+	"errors"
 	"time"
 
+	"github.com/uiansol/product-follow-up/internal/application/apperr"
 	"github.com/uiansol/product-follow-up/internal/application/entities"
 	"gorm.io/gorm"
 )
@@ -90,9 +92,11 @@ func (p *ProductRepository) Update(product *entities.Product) error {
 }
 
 func (p *ProductRepository) Delete(id string) error {
-	result := p.db.Delete(&ProductDB{}, "uuid = ?", id)
+	result := p.db.Unscoped().Delete(&ProductDB{}, "uuid = ?", id)
 	if result.Error != nil {
 		return result.Error
+	} else if result.RowsAffected < 1 {
+		return errors.New(apperr.ErrNotFound)
 	}
 
 	return nil

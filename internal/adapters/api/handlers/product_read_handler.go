@@ -20,13 +20,13 @@ func NewProductReadHandler(productReadUseCase usecases.IProductReadUseCase) *Pro
 }
 
 func (h *ProductReadHandler) Handle(c echo.Context) error {
-	var request dto.ProductReadRequest
+	var request dto.ProductIDRequest
 
 	if err := c.Bind(&request); err != nil {
 		return c.String(http.StatusBadRequest, "bad request")
 	}
 
-	input := mappers.ProductReadRequestToProductReadInput(request)
+	input := mappers.ProductIDRequestToProductReadInput(request)
 	output, err := h.productReadUseCase.Execute(input)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())

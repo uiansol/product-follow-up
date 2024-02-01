@@ -10,10 +10,10 @@ type ProductCreateRequest struct {
 }
 
 type ProductCreateResponse struct {
-	ProductID string `json:"product_id"`
+	ID string `json:"id"`
 }
 
-type ProductReadRequest struct {
+type ProductIDRequest struct {
 	ID string `param:"id"`
 }
 
