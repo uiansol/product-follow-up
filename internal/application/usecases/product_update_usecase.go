@@ -2,7 +2,6 @@ package usecases
 
 import (
 	"errors"
-	"time"
 
 	"github.com/uiansol/product-follow-up/internal/application/interfaces"
 )
@@ -16,12 +15,11 @@ type ProductUpdateUseCase struct {
 }
 
 type ProductUpdateInput struct {
-	ID        string
-	Name      string
-	Comments  string
-	Link      string
-	Price     float64
-	PriceDate time.Time
+	ID       string
+	Name     string
+	Comments string
+	Link     string
+	Price    float64
 }
 
 func NewProductUpdateUseCase(productRepository interfaces.IProductRepository) *ProductUpdateUseCase {
@@ -40,7 +38,7 @@ func (u *ProductUpdateUseCase) Execute(productUpdateInput ProductUpdateInput) er
 	product.Comments = productUpdateInput.Comments
 	product.Link = productUpdateInput.Link
 	product.Price = productUpdateInput.Price
-	product.PriceDate = productUpdateInput.PriceDate
+	product.UpdatePriceDate()
 
 	err = u.productRepository.Update(product)
 	if err != nil {

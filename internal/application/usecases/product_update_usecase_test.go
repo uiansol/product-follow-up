@@ -25,12 +25,11 @@ func TestProductUpdateExecute(t *testing.T) {
 		date, _ := time.Parse(time.RFC3339, "2021-01-01T00:00:00Z")
 
 		input := ProductUpdateInput{
-			ID:        "123",
-			Name:      "test product update",
-			Comments:  "test description",
-			Link:      "https://test.com",
-			Price:     10.5,
-			PriceDate: date,
+			ID:       "123",
+			Name:     "test product update",
+			Comments: "test description",
+			Link:     "https://test.com",
+			Price:    10.5,
 		}
 
 		product := entities.Product{
@@ -54,14 +53,12 @@ func TestProductUpdateExecute(t *testing.T) {
 	})
 
 	t.Run("should return error when couldn't read", func(t *testing.T) {
-		date, _ := time.Parse(time.RFC3339, "2021-01-01T00:00:00Z")
 		input := ProductUpdateInput{
-			ID:        "123",
-			Name:      "test product update",
-			Comments:  "test description",
-			Link:      "https://test.com",
-			Price:     10.5,
-			PriceDate: date,
+			ID:       "123",
+			Name:     "test product update",
+			Comments: "test description",
+			Link:     "https://test.com",
+			Price:    10.5,
 		}
 
 		productRepositoryMock := mocksdb.NewIProductRepository(t)
@@ -77,12 +74,11 @@ func TestProductUpdateExecute(t *testing.T) {
 	t.Run("should return error when couldn't update", func(t *testing.T) {
 		date, _ := time.Parse(time.RFC3339, "2021-01-01T00:00:00Z")
 		input := ProductUpdateInput{
-			ID:        "123",
-			Name:      "test product update",
-			Comments:  "test description",
-			Link:      "https://test.com",
-			Price:     10.5,
-			PriceDate: date,
+			ID:       "123",
+			Name:     "test product update",
+			Comments: "test description",
+			Link:     "https://test.com",
+			Price:    10.5,
 		}
 
 		product := entities.Product{
