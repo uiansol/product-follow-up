@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/uiansol/product-follow-up/internal/adapters/api/handlers"
 	"github.com/uiansol/product-follow-up/internal/adapters/db/mysql"
@@ -40,11 +39,9 @@ type AppHandlers struct {
 }
 
 type EnvVariables struct {
-	MYSQL_HOST string
-	MYSQL_PORT string
-	MYSQL_USER string
-	MYSQL_PASS string
-	MYSQL_DB   string
+	MYSQL_ROOT_HOST     string
+	MYSQL_ROOT_PASSWORD string
+	MYSQL_DATABASE      string
 }
 
 func NewRestService(router *echo.Echo, appHandler *AppHandlers) *RestServer {
@@ -55,14 +52,9 @@ func NewRestService(router *echo.Echo, appHandler *AppHandlers) *RestServer {
 }
 
 func RunServer() {
-	err := godotenv.Load(".env")
-	if err != nil {
-		panic(err)
-	}
-
 	env := getEnv()
 
-	db, err := gorm.Open(gormmysql.Open(fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", env.MYSQL_USER, env.MYSQL_PASS, env.MYSQL_HOST, env.MYSQL_PORT, env.MYSQL_DB)), &gorm.Config{})
+	db, err := gorm.Open(gormmysql.Open(fmt.Sprintf("root:%s@tcp(%s:3306)/%s?parseTime=true", env.MYSQL_ROOT_PASSWORD, env.MYSQL_ROOT_HOST, env.MYSQL_DATABASE)), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
@@ -80,10 +72,23 @@ func RunServer() {
 
 func getEnv() EnvVariables {
 	return EnvVariables{
-		MYSQL_HOST: os.Getenv("MYSQL_HOST"),
-		MYSQL_PORT: os.Getenv("MYSQL_PORT"),
-		MYSQL_USER: os.Getenv("MYSQL_USER"),
-		MYSQL_PASS: os.Getenv("MYSQL_PASS"),
-		MYSQL_DB:   os.Getenv("MYSQL_DB"),
+		MYSQL_ROOT_HOST:     os.Getenv("MYSQL_ROOT_HOST"),
+		MYSQL_ROOT_PASSWORD: os.Getenv("MYSQL_ROOT_PASSWORD"),
+		MYSQL_DATABASE:      os.Getenv("MYSQL_DATABASE"),
 	}
+}
+
+func MigrateDB() {
+	fmt.Println("Migrating MySQL Models")
+
+	env := getEnv()
+
+	db, err := gorm.Open(gormmysql.Open(fmt.Sprintf("root:%s@tcp(%s:3306)/%s?parseTime=true", env.MYSQL_ROOT_PASSWORD, env.MYSQL_ROOT_HOST, env.MYSQL_DATABASE)), &gorm.Config{})
+	if err != nil {
+		panic(err)
+	}
+
+	db.AutoMigrate(&mysql.ProductDB{})
+
+	fmt.Println("Migration finished")
 }
