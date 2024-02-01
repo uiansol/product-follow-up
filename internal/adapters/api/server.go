@@ -18,17 +18,19 @@ type RestServer struct {
 	appHandler *AppHandlers
 }
 
-type AppHandlers struct {
-	pingHandler    *handlers.PingHandler
-	productHandler *handlers.ProductCreateHandler
-}
-
 type AppRepositories struct {
 	productRepository *mysql.ProductRepository
 }
 
 type AppUseCases struct {
 	productCreateUseCase *usecases.ProductCreateUseCase
+	productReadUseCase   *usecases.ProductReadUseCase
+}
+
+type AppHandlers struct {
+	pingHandler          *handlers.PingHandler
+	productCreateHandler *handlers.ProductCreateHandler
+	productReadHandler   *handlers.ProductReadHandler
 }
 
 type EnvVariables struct {
@@ -54,7 +56,7 @@ func RunServer() {
 
 	env := getEnv()
 
-	db, err := gorm.Open(gormmysql.Open(fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", env.MYSQL_USER, env.MYSQL_PASS, env.MYSQL_HOST, env.MYSQL_PORT, env.MYSQL_DB)), &gorm.Config{})
+	db, err := gorm.Open(gormmysql.Open(fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", env.MYSQL_USER, env.MYSQL_PASS, env.MYSQL_HOST, env.MYSQL_PORT, env.MYSQL_DB)), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}

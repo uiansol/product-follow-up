@@ -17,9 +17,11 @@ func configRepositories(db *gorm.DB) *AppRepositories {
 
 func configUseCases(repositories *AppRepositories) *AppUseCases {
 	productCreateUseCase := usecases.NewProductCreateUseCase(repositories.productRepository)
+	productReadUseCase := usecases.NewProductReadUseCase(repositories.productRepository)
 
 	return &AppUseCases{
 		productCreateUseCase: productCreateUseCase,
+		productReadUseCase:   productReadUseCase,
 	}
 }
 
@@ -27,9 +29,11 @@ func configHandlers(usecases *AppUseCases) *AppHandlers {
 	pingHandler := handlers.NewPingHandler()
 
 	productCreateHandler := handlers.NewProductCreateHandler(usecases.productCreateUseCase)
+	productReadHandler := handlers.NewProductReadHandler(usecases.productReadUseCase)
 
 	return &AppHandlers{
-		pingHandler:    pingHandler,
-		productHandler: productCreateHandler,
+		pingHandler:          pingHandler,
+		productCreateHandler: productCreateHandler,
+		productReadHandler:   productReadHandler,
 	}
 }

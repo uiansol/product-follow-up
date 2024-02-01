@@ -19,3 +19,20 @@ func ProductCreateOutputToProductCreateResponse(p usecases.ProductCreateOutput) 
 		ProductID: p.ProductID,
 	}
 }
+
+func ProductReadRequestToProductReadInput(p dto.ProductReadRequest) usecases.ProductReadInput {
+	return usecases.ProductReadInput{
+		ID: p.ID,
+	}
+}
+
+func ProductReadOutputToProductReadResponse(p usecases.ProductReadOutput) dto.ProductReadResponse {
+	return dto.ProductReadResponse{
+		ID:        p.ID,
+		Name:      p.Name,
+		Comments:  p.Comments,
+		Link:      p.Link,
+		Price:     p.Price,
+		PriceDate: p.PriceDate,
+	}
+}
