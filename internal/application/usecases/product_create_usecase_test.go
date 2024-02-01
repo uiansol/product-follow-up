@@ -20,10 +20,10 @@ func TestNewProductCreateUseCase(t *testing.T) {
 
 func TestProductCreateExecute(t *testing.T) {
 	input := ProductCreateInput{
-		Name:        "test product",
-		Description: "test description",
-		Link:        "https://test.com",
-		Price:       10.5,
+		Name:     "test product",
+		Comments: "test description",
+		Link:     "https://test.com",
+		Price:    10.5,
 	}
 
 	t.Run("should create the product and return error nil", func(t *testing.T) {
@@ -43,10 +43,10 @@ func TestProductCreateExecute(t *testing.T) {
 		productCreateUseCase := NewProductCreateUseCase(productRepositoryMock)
 
 		inputInvalidName := ProductCreateInput{
-			Name:        "",
-			Description: "test description",
-			Link:        "https://test.com",
-			Price:       10.5,
+			Name:     "",
+			Comments: "test description",
+			Link:     "https://test.com",
+			Price:    10.5,
 		}
 
 		output, err := productCreateUseCase.Execute(inputInvalidName)

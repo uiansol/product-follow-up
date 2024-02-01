@@ -7,10 +7,10 @@ import (
 
 func ProductCreateRequestToProductCreateInput(p dto.ProductCreateRequest) usecases.ProductCreateInput {
 	return usecases.ProductCreateInput{
-		Name:        p.Name,
-		Description: p.Description,
-		Link:        p.Link,
-		Price:       p.Price,
+		Name:     p.Name,
+		Comments: p.Description,
+		Link:     p.Link,
+		Price:    p.Price,
 	}
 }
 
