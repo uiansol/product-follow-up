@@ -1,8 +1,6 @@
 package usecases
 
 import (
-	"errors"
-
 	"github.com/uiansol/product-follow-up/internal/application/entities"
 	"github.com/uiansol/product-follow-up/internal/application/interfaces"
 )
@@ -41,7 +39,7 @@ func (u *ProductUpdateUseCase) Execute(productUpdateInput ProductUpdateInput) er
 
 	err := u.productRepository.Update(&product)
 	if err != nil {
-		return errors.New("error updating product")
+		return err
 	}
 
 	return nil

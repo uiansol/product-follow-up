@@ -54,6 +54,6 @@ func TestProductUpdateExecute(t *testing.T) {
 
 		err := productUpdateUseCase.Execute(input)
 
-		assert.Equal(t, "error updating product", err.Error())
+		assert.Equal(t, "assert.AnError general error for testing", err.Error())
 	})
 }

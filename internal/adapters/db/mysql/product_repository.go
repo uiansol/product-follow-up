@@ -77,9 +77,11 @@ func (p *ProductRepository) Update(product *entities.Product) error {
 
 	result := p.db.First(&productDB, "uuid = ?", product.ID)
 	if result.Error != nil {
+		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+			return errors.New(apperr.ErrNotFound)
+		}
 		return result.Error
 	}
-
 	productDB.Name = product.Name
 	productDB.Comments = product.Comments
 	productDB.Link = product.Link

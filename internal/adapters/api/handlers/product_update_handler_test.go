@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -11,6 +12,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"github.com/uiansol/product-follow-up/internal/adapters/api/dto"
+	"github.com/uiansol/product-follow-up/internal/application/apperr"
 	"github.com/uiansol/product-follow-up/internal/application/usecases"
 )
 
@@ -64,6 +66,22 @@ func TestProductUpdateHandle(t *testing.T) {
 		h.Handle(c)
 
 		assert.Equal(t, http.StatusBadRequest, rec.Code)
+	})
+
+	t.Run("should return 404 when use case returns error not found", func(t *testing.T) {
+		e := echo.New()
+		req := httptest.NewRequest(http.MethodPut, "/product/Test-ID", nil)
+		req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+		rec := httptest.NewRecorder()
+		c := e.NewContext(req, rec)
+
+		useCaseMock := usecases.NewIProductUpdateUseCaseMock(t)
+		useCaseMock.On("Execute", mock.Anything).Return(errors.New(apperr.ErrNotFound))
+
+		h := NewProductUpdateHandler(useCaseMock)
+		h.Handle(c)
+
+		assert.Equal(t, http.StatusNotFound, rec.Code)
 	})
 
 	t.Run("should return 500 when use case returns error", func(t *testing.T) {
