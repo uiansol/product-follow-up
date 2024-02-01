@@ -20,12 +20,14 @@ func configUseCases(repositories *AppRepositories) *AppUseCases {
 	productReadUseCase := usecases.NewProductReadUseCase(repositories.productRepository)
 	productUpdateUseCase := usecases.NewProductUpdateUseCase(repositories.productRepository)
 	productDeleteUseCase := usecases.NewProductDeleteUseCase(repositories.productRepository)
+	productReadAllUseCase := usecases.NewProductReadAllUseCase(repositories.productRepository)
 
 	return &AppUseCases{
-		productCreateUseCase: productCreateUseCase,
-		productReadUseCase:   productReadUseCase,
-		productUpdateUseCase: productUpdateUseCase,
-		productDeleteUseCase: productDeleteUseCase,
+		productCreateUseCase:  productCreateUseCase,
+		productReadUseCase:    productReadUseCase,
+		productUpdateUseCase:  productUpdateUseCase,
+		productDeleteUseCase:  productDeleteUseCase,
+		productReadAllUseCase: productReadAllUseCase,
 	}
 }
 
@@ -36,12 +38,14 @@ func configHandlers(usecases *AppUseCases) *AppHandlers {
 	productReadHandler := handlers.NewProductReadHandler(usecases.productReadUseCase)
 	productUpdateHandler := handlers.NewProductUpdateHandler(usecases.productUpdateUseCase)
 	productDeleteHandler := handlers.NewProductDeleteHandler(usecases.productDeleteUseCase)
+	productReadAllHandler := handlers.NewProductReadAllHandler(usecases.productReadAllUseCase)
 
 	return &AppHandlers{
-		pingHandler:          pingHandler,
-		productCreateHandler: productCreateHandler,
-		productReadHandler:   productReadHandler,
-		productUpdateHandler: productUpdateHandler,
-		productDeleteHandler: productDeleteHandler,
+		pingHandler:           pingHandler,
+		productCreateHandler:  productCreateHandler,
+		productReadHandler:    productReadHandler,
+		productUpdateHandler:  productUpdateHandler,
+		productDeleteHandler:  productDeleteHandler,
+		productReadAllHandler: productReadAllHandler,
 	}
 }

@@ -33,3 +33,7 @@ type ProductUpdateRequest struct {
 	Link     string  `json:"link"`
 	Price    float64 `json:"price"`
 }
+
+type ProductReadAllResponse struct {
+	Products []ProductReadResponse `json:"products"`
+}

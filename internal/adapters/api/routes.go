@@ -19,6 +19,9 @@ func (s *RestServer) ProductRoutes() {
 	s.router.POST("/product", func(c echo.Context) error {
 		return s.appHandler.productCreateHandler.Handle(c)
 	})
+	s.router.GET("/product", func(c echo.Context) error {
+		return s.appHandler.productReadAllHandler.Handle(c)
+	})
 	s.router.GET("/product/:id", func(c echo.Context) error {
 		return s.appHandler.productReadHandler.Handle(c)
 	})

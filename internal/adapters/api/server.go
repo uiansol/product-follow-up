@@ -23,18 +23,20 @@ type AppRepositories struct {
 }
 
 type AppUseCases struct {
-	productCreateUseCase *usecases.ProductCreateUseCase
-	productReadUseCase   *usecases.ProductReadUseCase
-	productUpdateUseCase *usecases.ProductUpdateUseCase
-	productDeleteUseCase *usecases.ProductDeleteUseCase
+	productCreateUseCase  *usecases.ProductCreateUseCase
+	productReadUseCase    *usecases.ProductReadUseCase
+	productUpdateUseCase  *usecases.ProductUpdateUseCase
+	productDeleteUseCase  *usecases.ProductDeleteUseCase
+	productReadAllUseCase *usecases.ProductReadAllUseCase
 }
 
 type AppHandlers struct {
-	pingHandler          *handlers.PingHandler
-	productCreateHandler *handlers.ProductCreateHandler
-	productReadHandler   *handlers.ProductReadHandler
-	productUpdateHandler *handlers.ProductUpdateHandler
-	productDeleteHandler *handlers.ProductDeleteHandler
+	pingHandler           *handlers.PingHandler
+	productCreateHandler  *handlers.ProductCreateHandler
+	productReadHandler    *handlers.ProductReadHandler
+	productUpdateHandler  *handlers.ProductUpdateHandler
+	productDeleteHandler  *handlers.ProductDeleteHandler
+	productReadAllHandler *handlers.ProductReadAllHandler
 }
 
 type EnvVariables struct {

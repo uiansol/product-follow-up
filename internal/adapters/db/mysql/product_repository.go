@@ -72,6 +72,31 @@ func (p *ProductRepository) Read(id string) (*entities.Product, error) {
 	return &product, nil
 }
 
+func (p *ProductRepository) ReadAll() ([]*entities.Product, error) {
+	productsDB := []ProductDB{}
+
+	result := p.db.Find(&productsDB)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	products := make([]*entities.Product, len(productsDB))
+
+	for i, productDB := range productsDB {
+		product := entities.Product{
+			ID:        productDB.UUID,
+			Name:      productDB.Name,
+			Comments:  productDB.Comments,
+			Link:      productDB.Link,
+			Price:     productDB.Price,
+			PriceDate: productDB.UpdatedAt,
+		}
+		products[i] = &product
+	}
+
+	return products, nil
+}
+
 func (p *ProductRepository) Update(product *entities.Product) error {
 	productDB := ProductDB{}
 

@@ -61,6 +61,36 @@ func (_m *IProductRepository) Read(id string) (*entities.Product, error) {
 	return r0, r1
 }
 
+// ReadAll provides a mock function with given fields:
+func (_m *IProductRepository) ReadAll() ([]*entities.Product, error) {
+	ret := _m.Called()
+
+	if len(ret) == 0 {
+		panic("no return value specified for ReadAll")
+	}
+
+	var r0 []*entities.Product
+	var r1 error
+	if rf, ok := ret.Get(0).(func() ([]*entities.Product, error)); ok {
+		return rf()
+	}
+	if rf, ok := ret.Get(0).(func() []*entities.Product); ok {
+		r0 = rf()
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).([]*entities.Product)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func() error); ok {
+		r1 = rf()
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // Save provides a mock function with given fields: user
 func (_m *IProductRepository) Save(user *entities.Product) (string, error) {
 	ret := _m.Called(user)
