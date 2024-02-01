@@ -14,10 +14,6 @@ type ProductReadAllUseCase struct {
 	productRepository interfaces.IProductRepository
 }
 
-type ProductReadAllInput struct {
-	ID string
-}
-
 type ProductReadAllOutput struct {
 	ID        string
 	Name      string

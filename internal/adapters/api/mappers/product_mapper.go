@@ -52,3 +52,21 @@ func ProductUpdateRequestToProductUpdateInput(p dto.ProductUpdateRequest) usecas
 		Price:    p.Price,
 	}
 }
+
+func ProductReadAllOutputToProductReadAllResponse(p []*usecases.ProductReadAllOutput) dto.ProductReadAllResponse {
+	var products []dto.ProductReadResponse
+	for _, product := range p {
+		products = append(products, dto.ProductReadResponse{
+			ID:        product.ID,
+			Name:      product.Name,
+			Comments:  product.Comments,
+			Link:      product.Link,
+			Price:     product.Price,
+			PriceDate: product.PriceDate,
+		})
+	}
+
+	return dto.ProductReadAllResponse{
+		Products: products,
+	}
+}
