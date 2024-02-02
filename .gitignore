@@ -22,4 +22,4 @@ go.work
 
 ## Other Go related files
 /mocks/
-.env
+/resources/
